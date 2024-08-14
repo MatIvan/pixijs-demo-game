@@ -1,0 +1,22 @@
+{
+    "bundles": [
+        {
+            "name": "load-screen",
+            "assets": [
+                {
+                    "alias": "background",
+                    "src": "assets/load-screen/black-loading.png"
+                }
+            ]
+        },
+        {
+            "name": "game-screen",
+            "assets": [
+                {
+                    "alias": "flowerTop",
+                    "src": "assets/game-screen/flowerTop.png"
+                }
+            ]
+        }
+    ]
+}
