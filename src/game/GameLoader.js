@@ -28,10 +28,10 @@ class GameLoader {
      * @returns {Promise<void>}
      */
     load() {
-        return AssetsLoader.loadScreen(this.onLoadScreenProgress)
+        return AssetsLoader.loadLoadScreen(this.onLoadScreenProgress)
             .then(() => {
                 //draw load screen
-                return AssetsLoader.assets(this.onAssetsProgress);
+                return AssetsLoader.loadAssets(this.onAssetsProgress);
             });
     }
 

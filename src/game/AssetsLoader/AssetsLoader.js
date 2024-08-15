@@ -6,9 +6,21 @@ import manifest from "./manifest.json";
 
 /**
  * @typedef {import('pixi.js').ProgressCallback | undefined} ProgressCallback
+ * @typedef {import('pixi.js').Texture | undefined} Texture
+ */
+
+/**
+ * @typedef {object} GameTextures
+ * @property {object} loadScreen
+ * @property {Texture} loadScreen.background
+ * @property {object} gameScreen
+ * @property {Texture} gameScreen.flowerTop
  */
 
 class AssetsLoader {
+
+    /**@type {GameTextures} */
+    gameTextures;
 
     init() {
         return Assets.init({ manifest });
@@ -17,15 +29,31 @@ class AssetsLoader {
     /**
      * @param {ProgressCallback} onProgress
      */
-    loadScreen(onProgress) {
-        return Assets.loadBundle("load-screen", onProgress);
+    loadLoadScreen(onProgress) {
+        return Assets.loadBundle("LoadScreen", onProgress)
+            .then((textures) => {
+                this.gameTextures = {
+                    ...this.gameTextures,
+                    loadScreen: {
+                        background: textures["LoadScreen-Background"]
+                    }
+                }
+            });
     }
 
     /**
      * @param {ProgressCallback} onProgress
      */
-    assets(onProgress) {
-        return Assets.loadBundle("game-screen", onProgress);
+    loadAssets(onProgress) {
+        return Assets.loadBundle(manifest.bundles[1].name, onProgress)
+            .then((textures) => {
+                this.gameTextures = {
+                    ...this.gameTextures,
+                    gameScreen: {
+                        flowerTop: textures["GameScreen-FlowerTop"]
+                    }
+                }
+            });
     }
 }
 
