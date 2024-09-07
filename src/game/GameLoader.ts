@@ -1,5 +1,6 @@
 import { Application } from "pixi.js";
 import AssetsLoader from "./AssetsLoader/AssetsLoader";
+import ScenesManager from "./scenes/ScenesManager"
 
 class GameLoader {
     app: Application;
@@ -8,36 +9,41 @@ class GameLoader {
         this.app = new Application();
     }
 
-    init(): Promise<void> {
+    init(): Promise<HTMLCanvasElement> {
         return this.app.init({
             background: '#1099bb',
-            width: 800,
-            height: 600
-        })
-            .then(() => {
-                return AssetsLoader.init();
+            width: window.innerWidth,
+            height: window.innerHeight,
+            autoDensity: true,
+            resolution: window.devicePixelRatio ?? 1,
+            resizeTo: window
+        }).then(() => {
+            ScenesManager.init(this.app.stage);
+            this.app.ticker.add(() => {
+                ScenesManager.update(this.app.ticker.deltaMS);
             });
+            return AssetsLoader.init()
+                .then(() => {
+                    return Promise.resolve(this.app.canvas);
+                });
+        });
     }
 
     load(): Promise<void> {
-        return AssetsLoader.loadLoadScreen(this.onLoadScreenProgress)
+        return AssetsLoader.loadLoadScreen(this.handlerLoadScreenProgress)
             .then(() => {
                 //TODO draw load screen
-                return AssetsLoader.loadAssets(this.onAssetsProgress);
+                return AssetsLoader.loadAssets(this.handlerAssetsProgress);
             });
     }
 
-    get canvas(): HTMLCanvasElement {
-        return this.app.canvas
+    private handlerLoadScreenProgress(progress: number) {
+        console.log("handlerLoadScreenProgress... ", progress);
     }
 
-    onLoadScreenProgress(progress: number) {
-        console.log("onLoadScreenProgress... ", progress);
-    }
-
-    onAssetsProgress(progress: number) {
+    private handlerAssetsProgress(progress: number) {
         //TODO update load screen
-        console.log("onAssetsProgress... ", progress);
+        console.log("handlerAssetsProgress... ", progress);
     }
 }
 

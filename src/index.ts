@@ -12,8 +12,8 @@ window.addEventListener("load", () => {
     })
 
     GameLoader.init()
-        .then(() => {
-            mainComponent.view.root.appendChild(GameLoader.canvas);
+        .then((canvas) => {
+            mainComponent.view.root.appendChild(canvas);
             return GameLoader.load();
         })
         .then(() => {
