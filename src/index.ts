@@ -1,7 +1,4 @@
-//@ts-check
-"use strict";
-
-import MainComponent from "./components/main/MainComponent";
+import { MainComponent } from "./components/main/MainComponent";
 import GameLoader from "./game/GameLoader";
 
 window.addEventListener("load", () => {
@@ -21,9 +18,7 @@ window.addEventListener("load", () => {
         })
         .then(() => {
             console.log("GameLoaded.");
-        })
-        .catch(err => {
-            window.alert(err);
+        }).catch((err) => {
+            console.error("GameLoader.init error:", err);
         });
-
 });

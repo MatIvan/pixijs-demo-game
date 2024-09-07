@@ -1,19 +1,14 @@
-//@ts-check
-"use strict";
-
 import { Application } from "pixi.js";
 import AssetsLoader from "./AssetsLoader/AssetsLoader";
 
 class GameLoader {
+    app: Application;
 
     constructor() {
         this.app = new Application();
     }
 
-    /**
-     * @returns {Promise<void>}
-     */
-    init() {
+    init(): Promise<void> {
         return this.app.init({
             background: '#1099bb',
             width: 800,
@@ -24,33 +19,24 @@ class GameLoader {
             });
     }
 
-    /**
-     * @returns {Promise<void>}
-     */
-    load() {
+    load(): Promise<void> {
         return AssetsLoader.loadLoadScreen(this.onLoadScreenProgress)
             .then(() => {
-                //draw load screen
+                //TODO draw load screen
                 return AssetsLoader.loadAssets(this.onAssetsProgress);
             });
     }
 
-    get canvas() {
+    get canvas(): HTMLCanvasElement {
         return this.app.canvas
     }
 
-    /**
-     * @param {number} progress
-     */
-    onLoadScreenProgress(progress) {
+    onLoadScreenProgress(progress: number) {
         console.log("onLoadScreenProgress... ", progress);
     }
 
-    /**
-     * @param {number} progress
-     */
-    onAssetsProgress(progress) {
-        //update load screen
+    onAssetsProgress(progress: number) {
+        //TODO update load screen
         console.log("onAssetsProgress... ", progress);
     }
 }

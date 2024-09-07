@@ -6,7 +6,7 @@ module.exports = {
     mode: 'development',
     devtool: 'inline-source-map',
     entry: {
-        index: './src/index.js'
+        index: './src/index.ts'
     },
     output: {
         filename: '[name].bundle.js',
@@ -32,9 +32,16 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            }, {
                 test: /\.css$/i,
                 use: ['style-loader', 'css-loader'],
             },
         ],
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
     },
 };

@@ -1,0 +1,4 @@
+.VerticalPanel {
+    display: flex;
+    flex-direction: column;
+}
