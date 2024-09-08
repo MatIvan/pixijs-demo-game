@@ -42,8 +42,4 @@ export class LoadingScene extends AbstractScene {
         this.container.addChild(this.progressText);
     }
 
-    override resize(size: Size): void {
-        super.resize(size);
-    };
-
 }
