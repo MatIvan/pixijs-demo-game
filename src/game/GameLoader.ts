@@ -1,9 +1,12 @@
 import { Application } from "pixi.js";
+import type { ProgressCallback } from "pixi.js";
 import AssetsLoader from "./AssetsLoader/AssetsLoader";
 import ScenesManager from "./scenes/ScenesManager"
+import { LoadingScene } from "./scenes/LoadingScene";
 
 class GameLoader {
     app: Application;
+    onAssetsProgress: ProgressCallback;
 
     constructor() {
         this.app = new Application();
@@ -32,8 +35,10 @@ class GameLoader {
     load(): Promise<void> {
         return AssetsLoader.loadLoadScreen(this.handlerLoadScreenProgress)
             .then(() => {
-                //TODO draw load screen
-                return AssetsLoader.loadAssets(this.handlerAssetsProgress);
+                ScenesManager.add(new LoadingScene());
+                return AssetsLoader.loadAssets((progress) => {
+                    this.onAssetsProgress?.(progress);
+                });
             });
     }
 
@@ -41,10 +46,6 @@ class GameLoader {
         console.log("handlerLoadScreenProgress... ", progress);
     }
 
-    private handlerAssetsProgress(progress: number) {
-        //TODO update load screen
-        console.log("handlerAssetsProgress... ", progress);
-    }
 }
 
 export default new GameLoader();

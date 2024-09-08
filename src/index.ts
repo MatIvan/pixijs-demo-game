@@ -1,4 +1,3 @@
-import { MainComponent } from "./components/main/MainComponent";
 import GameLoader from "./game/GameLoader";
 
 window.addEventListener("load", () => {
@@ -6,14 +5,9 @@ window.addEventListener("load", () => {
     if (!body) {
         return;
     }
-
-    const mainComponent = new MainComponent({
-        container: body,
-    })
-
     GameLoader.init()
         .then((canvas) => {
-            mainComponent.view.root.appendChild(canvas);
+            body.appendChild(canvas);
             return GameLoader.load();
         })
         .then(() => {

@@ -1,19 +1,15 @@
 import { Container, ContainerChild, Size } from "pixi.js";
-import { Scene } from "../../interfaces";
+import { AbstractScene } from "./AbstractScene";
 
-export class DefaultScene implements Scene {
-    private _container: ContainerChild;
+export interface SceneOptions {
+    name: string,
+    size: Size,
+}
 
-    constructor(readonly name: string) {
-        this._container = new Container();
+export class DefaultScene extends AbstractScene {
+    constructor() {
+        super({
+            name: "DefaultScene",
+        });
     }
-
-    get container(): ContainerChild {
-        return this._container;
-    }
-
-    start: () => void;
-    stop: () => void;
-    update: (deltaMS: number) => void;
-    resize: (size: Size) => void;
 }

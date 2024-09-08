@@ -23,7 +23,7 @@ class ScenesManager {
 
     init(container: Container) {
         this.container = container;
-        this.currentScene = new DefaultScene("default");
+        this.currentScene = new DefaultScene();
         this.add(this.currentScene);
         window.addEventListener('resize', () => {
             this.resize({
@@ -51,6 +51,10 @@ class ScenesManager {
         this.container.addChild(selectedScene.container);
         this.currentScene = selectedScene;
         this.currentScene.start();
+        this.resize({
+            width: window.innerWidth,
+            height: window.innerHeight
+        });
     }
 
     update(deltaMS: number) {
