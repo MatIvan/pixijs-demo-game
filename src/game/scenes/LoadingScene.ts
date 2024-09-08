@@ -8,21 +8,18 @@ export class LoadingScene extends AbstractScene {
     private progressText: Text;
 
     constructor() {
-        super({
-            name: "LoadingScene"
-        });
+        super("LoadingScene");
         this.build();
         GameLoader.onAssetsProgress = (progress) => { this.handlerAssetsProgress(progress) };
     }
 
     private handlerAssetsProgress(progress: number) {
         this.progressText.text = Math.round(progress * 100) + "%";
-        this.progressText.pivot.x = this.progressText.width / 2;
-        this.progressText.pivot.y = this.progressText.height / 2;
     }
 
     private build() {
         this.background = new Sprite(AssetsLoader.gameTextures.loadScreen.background);
+        this.background.anchor.set(0.5);
 
         this.progressText = new Text({
             text: '0%',
@@ -30,16 +27,20 @@ export class LoadingScene extends AbstractScene {
                 fontFamily: "'Courier New', Courier, monospace'",
                 fontSize: 24,
                 fill: 0xff1010,
-                align: 'center',
             }
         });
-        this.progressText.pivot.x = this.progressText.width / 2;
-        this.progressText.pivot.y = this.progressText.height / 2;
-        this.progressText.x = this.background.width / 2;
-        this.progressText.y = this.background.height / 2 + this.progressText.height;
+        this.progressText.anchor.set(0.5);
+        this.progressText.y = this.progressText.height;
 
         this.container.addChild(this.background);
         this.container.addChild(this.progressText);
     }
 
+    override resize(size: Size): void {
+        super.resize(size);
+        this.container.position = {
+            x: size.width / 2,
+            y: size.height / 2
+        }
+    }
 }

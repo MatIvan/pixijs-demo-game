@@ -8,8 +8,6 @@ export interface SceneOptions {
 
 export class DefaultScene extends AbstractScene {
     constructor() {
-        super({
-            name: "DefaultScene",
-        });
+        super("DefaultScene");
     }
 }

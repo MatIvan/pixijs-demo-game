@@ -4,7 +4,7 @@ import { Scene } from "../../interfaces";
 import { DefaultScene } from "./DefaultScene";
 
 const PROPS = {
-    resizeTimeoutMs: 300,
+    resizeTimeoutMs: 100,
 }
 
 class ScenesManager {
