@@ -14,6 +14,7 @@ class GameLoader {
     }
 
     init(): Promise<HTMLCanvasElement> {
+        //https://chromewebstore.google.com/detail/pixijs-devtools/dlkffcaaoccbofklocbjcmppahjjboce
         return initDevtools({ app: this.app })
             .then(() => {
                 return this.app.init({

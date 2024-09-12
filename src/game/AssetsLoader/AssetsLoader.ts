@@ -1,6 +1,7 @@
 import { Assets, ProgressCallback, Texture } from 'pixi.js';
+import type { AssetsManifest } from 'pixi.js';
 
-const manifest = {
+const manifest: AssetsManifest = {
     bundles: [
         {
             name: "LoadScreen",
